@@ -10,11 +10,9 @@ B141210306
 Sadık Senai
 G191210300
 @ssenai
-
 Hüseyin Yeni
 G191210301
 @G191210301
-
 Ayşe Merve
 G071210012
 @amb123yns
