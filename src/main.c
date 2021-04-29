@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   int i;
 
   /* Open the file as an inputstruct.  Error check. */
-  is = new_inputstruct(".kilit");
+  is = new_inputstruct(NULL);
   if (is == NULL)
   {
     perror(argv[1]);
