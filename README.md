@@ -9,4 +9,4 @@ Emre Bodur<br />B141210306<br />@boduremre<br />
 #### Üyeler
 Sadık Senai<br />G191210300<br />@ssenai<br /><br />
 Hüseyin Yeni<br />G191210301<br />@G191210301<br /><br />
-Ayşe Merve<br />G071210012<br />@amb123yns
+Ayşe Merve Candaş<br />G071210012<br />@amb123yns
