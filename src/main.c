@@ -3,6 +3,16 @@
 #include <string.h>
 #include "fields.h"
 
+// Kilit Struct Tanımlanmalı Hüseyin
+// JRB Eklenmeli Sadık
+// json okuma ve parse etme işlemleri yapılmalı - Ayşe Merve ve Emre
+// ./kripto -e istiklal_marsi_2.txt sifrelenmis şeklinde yapının ayarlanması Sadık, Hüseyin
+// ./kripto -d sifrelenmis cozumlenmis şeklinde yapının ayarlanması Ayşe Merve, Emre
+// okunan metni kilit vasıtasıyla şifreleyen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+// şifreli metni kilit vasıtasıyla çözen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+// test işlemlerinin yapılması ve hataların tespiti Sadık, Hüseyin, Emre, Ayşe Merve
+// test işlemleri sonucunda 
+
 int main(int argc, char **argv)
 {
   IS is;
