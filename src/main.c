@@ -4,14 +4,20 @@
 #include "fields.h"
 
 // Kilit Struct Tanımlanmalı Hüseyin
+struct Kilit{};
+
 // JRB Eklenmeli Sadık
 // json okuma ve parse etme işlemleri yapılmalı - Ayşe Merve ve Emre
 // ./kripto -e istiklal_marsi_2.txt sifrelenmis şeklinde yapının ayarlanması Sadık, Hüseyin
 // ./kripto -d sifrelenmis cozumlenmis şeklinde yapının ayarlanması Ayşe Merve, Emre
-// okunan metni kilit vasıtasıyla şifreleyen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
-// şifreli metni kilit vasıtasıyla çözen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
 // test işlemlerinin yapılması ve hataların tespiti Sadık, Hüseyin, Emre, Ayşe Merve
 // test işlemleri sonucunda 
+
+// okunan metni kilit vasıtasıyla şifreleyen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
+
+// şifreli metni kilit vasıtasıyla çözen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
 
 int main(int argc, char **argv)
 {
