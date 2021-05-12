@@ -1,10 +1,8 @@
-# If you want to use this on your own machine, change CLASSDIR and/or INCLUDE and LIBS so
-# that they point to the correct directories/library.
-
-CLASSDIR = ./libfdr
-INCLUDE = -I $(CLASSDIR)/include
-CFLAGS = $(INCLUDE)
-LIBS = $(CLASSDIR)/lib/libfdr.a
+LIBDIR = ./libfdr
+INCLUDE = -I ./include
+LIBFDRINCLUDE = -I $(LIBDIR)/include
+CFLAGS = $(INCLUDE) $(LIBFDRINCLUDE)
+LIBS = $(LIBDIR)/lib/libfdr.a
 
 CC = gcc
 EXECUTABLES = \
@@ -13,7 +11,9 @@ EXECUTABLES = \
 all: $(EXECUTABLES)
 
 clean:
-	rm -f kripto encripted decripted
+	rm -f ./lib/*.o sifrelenmis cozulmus kripto
 
 kripto: src/main.c
-	$(CC) $(CFLAGS) -o kripto src/main.c $(LIBS)
+	$(CC) $(CFLAGS) -o ./lib/kilit.o -c ./src/kilit.c
+	$(CC) $(CFLAGS) -o ./lib/mrbdr.o -c ./src/mrbdr.c
+	$(CC) $(CFLAGS) -o kripto ./lib/kilit.o ./lib/mrbdr.o src/main.c $(LIBS)
