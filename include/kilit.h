@@ -12,6 +12,16 @@
 #include "fields.h"
 #include "mrbdr.h"
 
+/* @name  : Kilit
+ * @desc  : .kilit dosyasından okunan key->val değerlerini tutan yapıdır.
+ * @params: char *key; char *val;
+ */
+typedef struct
+{
+    char *key;
+    char *val;
+} Kilit;
+
 // jrb ağacının içerğini ekrana yazan bir metot yazılmalı - Emre
 void print_jrb();
 
