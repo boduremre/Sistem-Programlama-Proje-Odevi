@@ -3,8 +3,8 @@
 #include <string.h>
 #include "fields.h"
 #include "kilit.h"
+#include "jrb.h"
 
-// JRB Eklenmeli Sadık
 
 // ./kripto -e istiklal_marsi_2.txt sifrelenmis şeklinde yapının ayarlanması Sadık, Hüseyin
 // ./kripto -d sifrelenmis cozumlenmis şeklinde yapının ayarlanması Ayşe Merve, Emre
