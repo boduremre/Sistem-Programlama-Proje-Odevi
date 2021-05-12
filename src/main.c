@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fields.h"
+#include "kilit.h"
 
-// Kilit Struct Tanımlanmalı Hüseyin
 // JRB Eklenmeli Sadık
 
 // ./kripto -e istiklal_marsi_2.txt sifrelenmis şeklinde yapının ayarlanması Sadık, Hüseyin
@@ -13,5 +13,7 @@
 
 int main(int argc, char **argv)
 {
+  // Kilit yapısı eklendi.
+  Kilit *k;
   return 0;
 }
