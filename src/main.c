@@ -13,6 +13,8 @@
 
 int main(int argc, char **argv)
 {
+  JRB kilit_encrypt, kilit_decrypt;
+  
   // Kilit yapısı eklendi.
   Kilit *k;
   return 0;
