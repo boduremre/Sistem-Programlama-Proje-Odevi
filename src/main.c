@@ -5,39 +5,64 @@
 #include "kilit.h"
 #include "jrb.h"
 
-
-// ./kripto -e istiklal_marsi_2.txt sifrelenmis şeklinde yapının ayarlanması Sadık, Hüseyin
-// ./kripto -d sifrelenmis cozumlenmis şeklinde yapının ayarlanması Ayşe Merve, Emre
 // test işlemlerinin yapılması ve hataların tespiti Sadık, Hüseyin, Emre, Ayşe Merve
-// test işlemleri sonucunda 
+// test işlemleri sonucunda
 
 int main(int argc, char **argv)
 {
   JRB kilit_encrypt, kilit_decrypt;
-  
+
   // Kilit yapısı eklendi.
   Kilit *k;
-  
-  // field ile giriş metin dosyasına erişiliyor
-  IS is2;
-  is2 = new_inputstruct(argv[2]);
-  if (is2 == NULL)
+  // field
+  IS is;
+
+  // giriş ve çıkış metinleri kontrol ediliyor.
+  if (argv[2] == NULL)
   {
-    perror(argv[1]);
-    exit(1);
+    printf("Giriş metni adı belirtilmedi!\n");
+  }
+  else if (argv[3] == NULL)
+  {
+    printf("Çıkış metni adı belirtilmedi!\n");
+  }
+  else
+  {
+    //jrb oluşturuluyor.
+    kilit_encrypt = make_jrb();
+    kilit_decrypt = make_jrb();
+
+    // bu fonksiyon ile kilit dosyası okunarak jrb ağaçları dolduruluyor.
+    // kilit.c içerisinde gövde tanımlanmalı
+    fill_jrb_from_kilit_file(kilit_encrypt, kilit_decrypt);
+
+    // giriş metni için fields ayarlanıyor.
+    is = new_inputstruct(argv[2]);
+    if (is == NULL)
+    {
+      perror(argv[2]);
+      exit(1);
+    }
+
+    // girilen parametrenin ne olduğuna göre şifreleme mi çözmemi işlemi yapılacağına karar veriliyor.
+    if (!strcmp(argv[1], "-e"))
+    {
+      printf("%s =  encripted işlemi yapıldı.\n", argv[1]);
+      encrypt_file(is, kilit_encrypt, argv[3]);
+    }
+    else if (!strcmp(argv[1], "-d")) // -d işlemi çözme işlemi yapar
+    {
+      printf("%s = decripted işlemi yapıldı.\n", argv[1]);
+      decrypt_file(is, kilit_decrypt, argv[3]);
+    }
+    else // eğer -e ve -d dışında bir parametre girildi ise uyarı veriliyor.
+    {
+      printf("Geçersiz parametre girildi. Şifrelemek için -e, Şifreyi Çözmek icin -d giriniz.\n");
+    }
   }
 
-  if (!strcmp(argv[1], "-e"))
-  {
-    printf("%s =  encripted işlemi yapılıyor.\n", argv[1]);
-    // burada dosya şifrelenecek
-  }
+  /* işi biten değişkenler bellekten siliniyor */
+  jettison_inputstruct(is);
 
-  if (!strcmp(argv[1], "-d"))
-  {
-    printf("%s = decripted işlemi yapılıyor.\n", argv[1]);
-    // burada giriş dosyasından şifre çözülecek
-  }
-  
   return 0;
 }
