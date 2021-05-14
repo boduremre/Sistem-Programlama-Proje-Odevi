@@ -47,11 +47,12 @@ void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
 
         // ilk ve son satır değilse
         // ilk satır daima { başlar ve son satır daima } ile biter.
-        if (strchr(is->fields[0], '{') == NULL && strchr(is->fields[0], '}') == NULL)
+        if (strchr(is->text1, '{') == NULL && strchr(is->text1, '}') == NULL)
         {
-
-            p = malloc(sizeof(Kilit));
-
+            p = malloc(sizeof(Kilit)); // bellekten alan ayrılıyor.
+            
+            // Bu fonksiyon içerisinde ayırma işlemlerinin strtok kullanılarak yapılması gerektiğini düşünüyorum.
+            // 
             if (strchr(is->fields[0], ':') != NULL)
             {
                 remove_str_character(is->fields[0], ':');
