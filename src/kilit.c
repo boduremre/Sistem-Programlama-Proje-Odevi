@@ -5,6 +5,11 @@
 */
 #include "kilit.h"
 
+/* @name  : print_jrb
+ * @desc  : Parametre olarak verilen JRB ağacının içeriğini ekrana yazdırır (Traverse eder).
+ * @params: JRB j
+ * @return: void
+ */
 void print_jrb(JRB j)
 {
     JRB tmp;
@@ -17,47 +22,12 @@ void print_jrb(JRB j)
     }
 }
 
-void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
-{
-    JRB rnode;
-    Kilit *k1;
 
-    FILE *fptr;
-    fptr = fopen(hedef_dosya_adi, "w");
-    if (fptr == NULL)
-    {
-        printf("Dosya oluşturulamadı!");
-        exit(1);
-    }
-
-    /* Read each line with get_line().  Print out each word. */
-    while (get_line(is) >= 0)
-    {
-        for (int i = 0; i < is->NF; i++)
-        {
-            if (is->fields[i] != NULL)
-            {
-                rnode = jrb_find_str(kilit_encrypt, is->fields[i]);
-                //printf("%d: %s\n", is->line, is->fields[i]);
-                if (rnode != NULL)
-                {
-                    k1 = (Kilit *)rnode->val.v;
-                    fprintf(fptr, "%s ", k1->val);
-                    //printf("%s için bir şifre %s \n", is->fields[i], k1->val);
-                }
-                else
-                {
-                    fprintf(fptr, "%s ", is->fields[i]);
-                }
-            }
-        }
-    }
-
-    fclose(fptr);
-}
-
-void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
-
+/* @name  : fill_jrb_from_kilit_file
+ * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
+ * @params: JRB kilit_encrypt, JRB kilit_decrypt
+ * @return: void
+ */
 void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
 {
     IS is;
@@ -113,3 +83,92 @@ void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
         }
     }
 }
+
+/* @name  : encrypt_file
+ * @desc  : Giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre şifreler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
+ * @return: void
+ */
+void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
+{
+    JRB rnode;
+    Kilit *k1;
+
+    FILE *fptr;
+    fptr = fopen(hedef_dosya_adi, "w");
+    if (fptr == NULL)
+    {
+        printf("Dosya oluşturulamadı!");
+        exit(1);
+    }
+
+    /* Read each line with get_line().  Print out each word. */
+    while (get_line(is) >= 0)
+    {
+        for (int i = 0; i < is->NF; i++)
+        {
+            if (is->fields[i] != NULL)
+            {
+                rnode = jrb_find_str(kilit_encrypt, is->fields[i]);
+                //printf("%d: %s\n", is->line, is->fields[i]);
+                if (rnode != NULL)
+                {
+                    k1 = (Kilit *)rnode->val.v;
+                    fprintf(fptr, "%s ", k1->val);
+                    //printf("%s için bir şifre %s \n", is->fields[i], k1->val);
+                }
+                else
+                {
+                    fprintf(fptr, "%s ", is->fields[i]);
+                }
+            }
+        }
+    }
+
+    fclose(fptr);
+}
+
+/* @name  : decrypt_file
+ * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
+ * @return: void
+ */
+void decrypt_file(IS is, JRB kilit_decrypt, char *hedef_dosya_adi)
+{
+    JRB jrb_decripted, jrb_tmp;
+    Kilit *kilit_decripted;
+
+    FILE *fptr;
+    fptr = fopen(hedef_dosya_adi, "w");
+    if (fptr == NULL)
+    {
+        printf("Dosya oluşturulamadı!");
+        exit(1);
+    }
+
+    // /* Read each line with get_line().  Print out each word. */
+    while (get_line(is) >= 0)
+    {
+        for (int i = 0; i < is->NF; i++)
+        {
+            if (is->fields[i] != NULL)
+            {
+                jrb_decripted = jrb_find_str(kilit_decrypt, is->fields[i]);
+
+                if (jrb_decripted != NULL)
+                {
+                    kilit_decripted = (Kilit *)jrb_decripted->val.v;
+                    fprintf(fptr, "%s ", kilit_decripted->key);
+                    // printf("%s şifresi için bulunan kelime %s \n", is->fields[i], k1->key);
+                }
+                else
+                {
+                    fprintf(fptr, "%s ", is->fields[i]);
+                }
+            }
+        }
+    }
+
+    fclose(fptr);
+}
+
