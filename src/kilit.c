@@ -16,7 +16,46 @@ void print_jrb(JRB j)
         printf("Key=%s Val=%s\n", kilit->key, kilit->val);
     }
 }
-void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
+
+void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
+{
+    JRB rnode;
+    Kilit *k1;
+
+    FILE *fptr;
+    fptr = fopen(hedef_dosya_adi, "w");
+    if (fptr == NULL)
+    {
+        printf("Dosya oluşturulamadı!");
+        exit(1);
+    }
+
+    /* Read each line with get_line().  Print out each word. */
+    while (get_line(is) >= 0)
+    {
+        for (int i = 0; i < is->NF; i++)
+        {
+            if (is->fields[i] != NULL)
+            {
+                rnode = jrb_find_str(kilit_encrypt, is->fields[i]);
+                //printf("%d: %s\n", is->line, is->fields[i]);
+                if (rnode != NULL)
+                {
+                    k1 = (Kilit *)rnode->val.v;
+                    fprintf(fptr, "%s ", k1->val);
+                    //printf("%s için bir şifre %s \n", is->fields[i], k1->val);
+                }
+                else
+                {
+                    fprintf(fptr, "%s ", is->fields[i]);
+                }
+            }
+        }
+    }
+
+    fclose(fptr);
+}
+
 void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
 
 void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
