@@ -5,7 +5,17 @@
 */
 #include "kilit.h"
 
-void print_jrb();
+void print_jrb(JRB j)
+{
+    JRB tmp;
+    Kilit *kilit;
+
+    jrb_traverse(tmp, j)
+    {
+        kilit = (Kilit *)tmp->val.v;
+        printf("Key=%s Val=%s\n", kilit->key, kilit->val);
+    }
+}
 void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
 void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
 
