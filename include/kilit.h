@@ -22,16 +22,32 @@ typedef struct
     char *val;
 } Kilit;
 
-// jrb ağacının içerğini ekrana yazan bir metot yazılmalı - Emre
+/* @name  : print_jrb
+ * @desc  : Parametre olarak verilen JRB ağacının içeriğini ekrana yazdırır (Traverse eder).
+ * @params: JRB j
+ * @return: void
+ */
 void print_jrb();
 
-// json okuma ve parse etme işlemleri yapılmalı - Ayşe Merve ve Emre
+/* @name  : fill_jrb_from_kilit_file
+ * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
+ * @params: JRB kilit_encrypt, JRB kilit_decrypt
+ * @return: void
+ */
 void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt);
 
-//okunan metni kilit vasıtasıyla şifreleyen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+/* @name  : encrypt_file
+ * @desc  : Giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre şifreler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
+ * @return: void
+ */
 void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
 
-// şifreli metni kilit vasıtasıyla çözen bir fonksiyon yazılmalı Sadık, Hüseyin, Emre, Ayşe Merve
+/* @name  : decrypt_file
+ * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
+ * @return: void
+ */
 void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
 
 #endif
