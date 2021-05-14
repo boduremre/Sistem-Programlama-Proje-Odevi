@@ -58,6 +58,7 @@ int main(int argc, char **argv)
     else // eğer -e ve -d dışında bir parametre girildi ise uyarı veriliyor.
     {
       printf("Geçersiz parametre girildi. Şifrelemek için -e, Şifreyi Çözmek icin -d giriniz.\n");
+      exit(1); // çıkış yapılmaz ise program hataya düşüyor.
     }
   }
 
