@@ -22,7 +22,6 @@ void print_jrb(JRB j)
     }
 }
 
-// BU FONKSİYONDA HATA VAR ARKADAŞLAR KONTROL EDİP DÜZENLER MİSİNİZ?
 /* @name  : fill_jrb_from_kilit_file
  * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
  * @params: JRB kilit_encrypt, JRB kilit_decrypt
@@ -31,56 +30,74 @@ void print_jrb(JRB j)
 void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
 {
     IS is;
-    Kilit *p;
-
+    Kilit *k;
+    char *delp;
+    int i = 0;
+    
     //kilit dosyası okunuyor.
     is = new_inputstruct(".kilit");
     if (is == NULL)
     {
         perror("Huffman kilit dosyası bulunamadı!");
+        printf("Program sonlandirildi!\n");
         exit(1);
     }
 
-    /* Read each line with get_line(). */
+    /* Her satırı get_line () ile okunuyor. */
     while (get_line(is) >= 0)
     {
-
         // ilk ve son satır değilse
         // ilk satır daima { başlar ve son satır daima } ile biter.
         if (strchr(is->text1, '{') == NULL && strchr(is->text1, '}') == NULL)
         {
-            p = malloc(sizeof(Kilit)); // bellekten alan ayrılıyor.
+            k = malloc(sizeof(Kilit)); // bellekten alan ayrılıyor.
             
-            // Bu fonksiyon içerisinde ayırma işlemlerinin strtok kullanılarak yapılması gerektiğini düşünüyorum.
-            // 
-            if (strchr(is->fields[0], ':') != NULL)
-            {
-                remove_str_character(is->fields[0], ':');
-            }
-            else
+            if (strchr(is->text1, ':') == NULL)
             {
                 printf("KILIT DOSYASI HATALI!\n");
                 printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: ':' karakteri yok!\n", is->line, is->text1);
                 exit(1);
             }
 
-            if (strchr(is->fields[0], '"') != NULL)
-                remove_str_character(is->fields[0], '"');
+            if (strchr(is->text1, '\"') == NULL || getNumPipe(is->text1, '\"') < 4)
+            {
+                printf("KILIT DOSYASI HATALI!\n");
+                printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: '\"' karakteri yok!\n", is->line, is->text1);
+                exit(1);
+            }
 
-            if (strchr(is->fields[1], '"') != NULL)
-                remove_str_character(is->fields[1], '"');
+            delp = strtok(is->text1, ":");
+            while (delp != NULL)
+            {
+                remove_str_character(delp, ' ');  // boşluk karakteri siliniyor
+                remove_str_character(delp, '\n'); // satır karakteri siliniyor
+                remove_str_character(delp, '"');  // çift tırnak karakteri siliniyor
 
-            if (strchr(is->fields[1], ',') != NULL)
-                remove_str_character(is->fields[1], ',');
+                if (delp != NULL)
+                {
+                    if (i % 2 == 0)
+                    {
+                        k->key = (char *)malloc(sizeof(char) * (strlen(delp) + 1));
+                        strcpy(k->key, delp);
+                        //printf("%d. k->key=%s\n", i, k->key);
+                    }
+                    else
+                    {
+                        remove_str_character(delp, ','); // val sonundaki virgüller siliniyor.
+                        k->val = (char *)malloc(sizeof(char) * (strlen(delp) + 1));
+                        strcpy(k->val, delp);
+                        //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
+                    }
 
-            p->key = (char *)malloc(sizeof(char) * (strlen(is->fields[0]) + 1));
-            strcpy(p->key, is->fields[0]);
+                    i++;
+                }
 
-            p->val = (char *)malloc(sizeof(char) * (strlen(is->fields[1]) + 1));
-            strcpy(p->val, is->fields[1]);
+                delp = strtok(NULL, ":");
+            }
 
-            (void)jrb_insert_str(kilit_encrypt, p->key, new_jval_v((void *)p));
-            (void)jrb_insert_str(kilit_decrypt, p->val, new_jval_v((void *)p));
+            //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
+            (void)jrb_insert_str(kilit_encrypt, k->key, new_jval_v((void *)k));
+            (void)jrb_insert_str(kilit_decrypt, k->val, new_jval_v((void *)k));
         }
     }
 }
