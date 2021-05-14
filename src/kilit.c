@@ -22,7 +22,7 @@ void print_jrb(JRB j)
     }
 }
 
-
+// BU FONKSİYONDA HATA VAR ARKADAŞLAR KONTROL EDİP DÜZENLER MİSİNİZ?
 /* @name  : fill_jrb_from_kilit_file
  * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
  * @params: JRB kilit_encrypt, JRB kilit_decrypt
