@@ -12,7 +12,7 @@ all: $(EXECUTABLES)
 run: clean kripto komut
 
 komut: 
-	./kripto -e ornek_metin.txt encripted 
+	./kripto -e ornek_metin encripted 
 	./kripto -d encripted decripted
 
 clean:
