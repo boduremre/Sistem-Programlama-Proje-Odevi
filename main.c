@@ -38,12 +38,12 @@ int main(int argc, char **argv)
     if (!strcmp(argv[1], "-e"))
     {
       printf("%s =  Kripto kilidine göre kriptonlandi ve okunabilir kripto metni üretildi!\n\n", argv[1]);
-      encrypt_file(is, kilit_sifrelenmis, argv[3]);
+      encrypt_file(my_is, kilit_sifrelenmis, argv[3]);
     }
     else if (!strcmp(argv[1], "-d"))
     {
       printf("%s = Kripto kilidine göre çözümlendi ve okunabilir çıkış metni üretildi!\n\n", argv[1]);
-      decrypt_file(is, kilit_cozumlenmis, argv[3]);
+      decrypt_file(my_is, kilit_cozumlenmis, argv[3]);
     }
     else
     {
