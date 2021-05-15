@@ -1,3 +1,9 @@
+/* mrbdr.c
+   Emre Bodur, Ayşe Merve Candaş, Hüseyin Eski, Sadık Sinai
+   BSM308 Proje / Tasarım Ödevi
+   Mayıs, 2021
+*/
+
 #include "mrbdr.h"
 
 void remove_str_character(char *s, char delimeter)
