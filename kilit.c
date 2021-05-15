@@ -14,7 +14,7 @@ void print_jrb(JRB j)
     }
 }
 
-void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis);
+void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
 {
     IS my_is;
     Kilit *kilit;
