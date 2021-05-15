@@ -52,6 +52,6 @@ int main(int argc, char **argv)
   }
 
   /* Free up the memory allocated with new_inputstruct, and close the open file.  */
-  jettison_inputstruct(is);
+  jettison_inputstruct(my_is);
   return 0;
 }
