@@ -9,10 +9,8 @@
 
 int main(int argc, char **argv)
 {
-  JRB kilit_encrypt, kilit_decrypt;
-  IS is;
-  int i, nsize;
-  char *lines;
+  JRB kilit_sifrelenmis, kilit_cozumlenmis;
+  IS my_is;
 
   if (argv[2] == NULL)
   {
@@ -25,13 +23,13 @@ int main(int argc, char **argv)
   else
   {
     //jrb'ye ekleme
-    kilit_encrypt = make_jrb();
-    kilit_decrypt = make_jrb();
+    kilit_sifrelenmis = make_jrb();
+    kilit_cozumlenmis = make_jrb();
 
-    fill_jrb_from_kilit_file(kilit_encrypt, kilit_decrypt);
+    kilit_dosyasindan_jrb_doldur(kilit_sifrelenmis, kilit_cozumlenmis);
 
-    is = new_inputstruct(argv[2]);
-    if (is == NULL)
+    my_is = new_inputstruct(argv[2]);
+    if (my_is == NULL)
     {
       perror(argv[2]);
       exit(1);
@@ -40,12 +38,12 @@ int main(int argc, char **argv)
     if (!strcmp(argv[1], "-e"))
     {
       printf("%s =  Kripto kilidine göre kriptonlandi ve okunabilir kripto metni üretildi!\n\n", argv[1]);
-      encrypt_file(is, kilit_encrypt, argv[3]);
+      encrypt_file(is, kilit_sifrelenmis, argv[3]);
     }
     else if (!strcmp(argv[1], "-d"))
     {
       printf("%s = Kripto kilidine göre çözümlendi ve okunabilir çıkış metni üretildi!\n\n", argv[1]);
-      decrypt_file(is, kilit_decrypt, argv[3]);
+      decrypt_file(is, kilit_cozumlenmis, argv[3]);
     }
     else
     {
