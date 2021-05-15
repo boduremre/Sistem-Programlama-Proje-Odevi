@@ -1,8 +1,7 @@
 LIBDIR = ./libfdr
-INCLUDE = -I ./include
-LIBFDRINCLUDE = -I $(LIBDIR)/include
-CFLAGS = $(INCLUDE) $(LIBFDRINCLUDE)
-LIBS = $(LIBDIR)/lib/libfdr.a
+INCLUDE = -I ./
+CFLAGS = $(INCLUDE)
+LIBS = $(LIBDIR)/libfdr.a
 
 CC = gcc
 EXECUTABLES = \
@@ -10,10 +9,19 @@ EXECUTABLES = \
 
 all: $(EXECUTABLES)
 
-clean:
-	rm -f ./lib/*.o sifrelenmis cozulmus kripto
+run: clean kripto komut
 
-kripto: src/main.c
-	$(CC) $(CFLAGS) -o ./lib/kilit.o -c ./src/kilit.c
-	$(CC) $(CFLAGS) -o ./lib/mrbdr.o -c ./src/mrbdr.c
-	$(CC) $(CFLAGS) -o kripto ./lib/kilit.o ./lib/mrbdr.o src/main.c $(LIBS)
+komut: 
+	./kripto -e ornek_metin.txt encripted 
+	./kripto -d encripted decripted
+
+clean:
+	rm -f *.o kripto
+	
+cleanall:
+	rm -f *.o .kilit kripto encripted decripted ornek_metin *.txt
+
+kripto: main.c
+	$(CC) $(CFLAGS) -o kilit.o -c kilit.c
+	$(CC) $(CFLAGS) -o mrbdr.o -c mrbdr.c
+	$(CC) $(CFLAGS) -o kripto kilit.o mrbdr.o main.c $(LIBS)
