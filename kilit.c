@@ -85,8 +85,8 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
             }
 
             //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
-            (void)jrb_insert_str(kilit_encrypt, kilit->key, new_jval_v((void *)kilit));
-            (void)jrb_insert_str(kilit_decrypt, kilit->val, new_jval_v((void *)kilit));
+            (void)jrb_insert_str(kilit_sifrelenmis, kilit->key, new_jval_v((void *)kilit));
+            (void)jrb_insert_str(kilit_cozumlenmis, kilit->val, new_jval_v((void *)kilit));
         }
     }
 }
