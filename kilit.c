@@ -14,16 +14,16 @@ void print_jrb(JRB j)
     }
 }
 
-void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
+void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis);
 {
-    IS is;
-    Kilit *k;
-    char *delp;
-    int i = 0;
+    IS my_is;
+    Kilit *kilit;
+    char *parcalanmis_text;
+    int a = 0;
 
     //kilit dosyası okunuyor.
-    is = new_inputstruct(".kilit");
-    if (is == NULL)
+    my_is = new_inputstruct(".kilit");
+    if (my_is == NULL)
     {
         perror("Huffman kilit dosyası bulunamadı!");
         printf("Program sonlandirildi!\n");
@@ -31,61 +31,62 @@ void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
     }
 
     /* Read each line with get_line(). */
-    while (get_line(is) >= 0)
+    while (get_line(my_is) >= 0)
     {
         // ilk ve son satır değilse
         // ilk satır daima { başlar ve son satır daima } ile biter.
-        if (strchr(is->text1, '{') == NULL && strchr(is->text1, '}') == NULL)
+        if (strchr(my_is->text1, '{') == NULL && strchr(my_is->text1, '}') == NULL)
         {
-            k = malloc(sizeof(Kilit));
+            // kilit için bellekten alan ayrılıyor.
+            kilit = malloc(sizeof(Kilit));
 
             // okunan satırda : işaretinin varlığı kontrol ediliyor.
-            if (strchr(is->text1, ':') == NULL)
+            if (strchr(my_is->text1, ':') == NULL)
             {
                 printf("KILIT DOSYASI HATALI!\n");
-                printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: ':' karakteri yok!\n", is->line, is->text1);
+                printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: ':' karakteri yok!\n", my_is->line, my_is->text1);
                 exit(1);
             }
 
-            if (strchr(is->text1, '\"') == NULL || getNumPipe(is->text1, '\"') < 4)
+            if (strchr(my_is->text1, '\"') == NULL || getNumPipe(my_is->text1, '\"') < 4)
             {
                 printf("KILIT DOSYASI HATALI!\n");
-                printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: '\"' karakteri yok!\n", is->line, is->text1);
+                printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: '\"' karakteri yok!\n", my_is->line, my_is->text1);
                 exit(1);
             }
 
-            delp = strtok(is->text1, ":");
-            while (delp != NULL)
+            parcalanmis_text = strtok(my_is->text1, ":");
+            while (parcalanmis_text != NULL)
             {
-                remove_str_character(delp, ' ');  // boşluk karakteri siliniyor
-                remove_str_character(delp, '\n'); // satır karakteri siliniyor
-                remove_str_character(delp, '"');  // çift tırnak karakteri siliniyor
+                remove_str_character(parcalanmis_text, ' ');  // boşluk karakteri siliniyor
+                remove_str_character(parcalanmis_text, '\n'); // satır karakteri siliniyor
+                remove_str_character(parcalanmis_text, '"');  // çift tırnak karakteri siliniyor
 
-                if (delp != NULL)
+                if (parcalanmis_text != NULL)
                 {
-                    if (i % 2 == 0)
+                    if (a % 2 == 0)
                     {
-                        k->key = (char *)malloc(sizeof(char) * (strlen(delp) + 1));
-                        strcpy(k->key, delp);
+                        kilit->key = (char *)malloc(sizeof(char) * (strlen(parcalanmis_text) + 1));
+                        strcpy(kilit->key, parcalanmis_text);
                         //printf("%d. k->key=%s\n", i, k->key);
                     }
                     else
                     {
-                        remove_str_character(delp, ','); // val sonundaki virgüller siliniyor.
-                        k->val = (char *)malloc(sizeof(char) * (strlen(delp) + 1));
-                        strcpy(k->val, delp);
+                        remove_str_character(parcalanmis_text, ','); // val sonundaki virgüller siliniyor.
+                        kilit->val = (char *)malloc(sizeof(char) * (strlen(parcalanmis_text) + 1));
+                        strcpy(kilit->val, parcalanmis_text);
                         //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
                     }
 
-                    i++;
+                    a++;
                 }
 
-                delp = strtok(NULL, ":");
+                parcalanmis_text = strtok(NULL, ":");
             }
 
             //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
-            (void)jrb_insert_str(kilit_encrypt, k->key, new_jval_v((void *)k));
-            (void)jrb_insert_str(kilit_decrypt, k->val, new_jval_v((void *)k));
+            (void)jrb_insert_str(kilit_encrypt, kilit->key, new_jval_v((void *)kilit));
+            (void)jrb_insert_str(kilit_decrypt, kilit->val, new_jval_v((void *)kilit));
         }
     }
 }
