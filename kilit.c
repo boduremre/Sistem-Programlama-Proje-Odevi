@@ -1,4 +1,8 @@
-/* Copyright (C) 2021 Emre Bodur */
+/* kilit.c
+   Emre Bodur, Ayşe Merve Candaş, Hüseyin Eski, Sadık Sinai
+   BSM308 Proje / Tasarım Ödevi
+   Mayıs, 2021
+*/
 
 #include "kilit.h"
 
