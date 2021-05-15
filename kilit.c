@@ -1,15 +1,7 @@
-/* kilit.c
- * Kilit dosyası ile ilgili işlemleri yapan fonksiyon kütüphanesi  
- * BSM308 Proje / Tasarım Ödevi
- * Mayıs, 2021
-*/
+/* Copyright (C) 2021 Emre Bodur */
+
 #include "kilit.h"
 
-/* @name  : print_jrb
- * @desc  : Parametre olarak verilen JRB ağacının içeriğini ekrana yazdırır (Traverse eder).
- * @params: JRB j
- * @return: void
- */
 void print_jrb(JRB j)
 {
     JRB tmp;
@@ -22,18 +14,13 @@ void print_jrb(JRB j)
     }
 }
 
-/* @name  : fill_jrb_from_kilit_file
- * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
- * @params: JRB kilit_encrypt, JRB kilit_decrypt
- * @return: void
- */
 void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
 {
     IS is;
     Kilit *k;
     char *delp;
     int i = 0;
-    
+
     //kilit dosyası okunuyor.
     is = new_inputstruct(".kilit");
     if (is == NULL)
@@ -43,15 +30,16 @@ void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
         exit(1);
     }
 
-    /* Her satırı get_line () ile okunuyor. */
+    /* Read each line with get_line(). */
     while (get_line(is) >= 0)
     {
         // ilk ve son satır değilse
         // ilk satır daima { başlar ve son satır daima } ile biter.
         if (strchr(is->text1, '{') == NULL && strchr(is->text1, '}') == NULL)
         {
-            k = malloc(sizeof(Kilit)); // bellekten alan ayrılıyor.
-            
+            k = malloc(sizeof(Kilit));
+
+            // okunan satırda : işaretinin varlığı kontrol ediliyor.
             if (strchr(is->text1, ':') == NULL)
             {
                 printf("KILIT DOSYASI HATALI!\n");
@@ -102,11 +90,6 @@ void fill_jrb_from_kilit_file(JRB kilit_encrypt, JRB kilit_decrypt)
     }
 }
 
-/* @name  : encrypt_file
- * @desc  : Giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre şifreler ve hedef dosyaya yazar.
- * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
- * @return: void
- */
 void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
 {
     JRB rnode;
@@ -146,11 +129,6 @@ void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
     fclose(fptr);
 }
 
-/* @name  : decrypt_file
- * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
- * @params: IS is, JRB kilit_decrypt, char *hedef_dosya_adi
- * @return: void
- */
 void decrypt_file(IS is, JRB kilit_decrypt, char *hedef_dosya_adi)
 {
     JRB jrb_decripted, jrb_tmp;
@@ -189,4 +167,3 @@ void decrypt_file(IS is, JRB kilit_decrypt, char *hedef_dosya_adi)
 
     fclose(fptr);
 }
-
