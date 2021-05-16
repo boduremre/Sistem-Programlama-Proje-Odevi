@@ -85,7 +85,7 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
                     }
                     else
                     {
-                        remove_str_character(parcalanmis_text, ','); // val sonundaki virgüller siliniyor.
+                        metinden_karakter_sil(parcalanmis_text, ','); // val sonundaki virgüller siliniyor.
                         kilit->val = (char *)malloc(sizeof(char) * (strlen(parcalanmis_text) + 1));
                         strcpy(kilit->val, parcalanmis_text);
                         //printf("%d. k->key=%s, k->val=%s\n", i, k->key, k->val);
