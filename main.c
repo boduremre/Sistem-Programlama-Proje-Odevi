@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     else if (!strcmp(argv[1], "-d"))
     {
       printf("%s = Kripto kilidine göre çözümlendi ve okunabilir çıkış metni üretildi!\n\n", argv[1]);
-      decrypt_file(my_is, kilit_cozumlenmis, argv[3]);
+      dosyanin_sifresini_coz(my_is, kilit_cozumlenmis, argv[3]);
     }
     else
     {

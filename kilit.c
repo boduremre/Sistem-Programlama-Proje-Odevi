@@ -139,10 +139,15 @@ void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
     fclose(fptr);
 }
 
-void decrypt_file(IS is, JRB kilit_decrypt, char *hedef_dosya_adi)
+/* @name  : dosyanin_sifresini_coz
+ * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_cozumlenmis, char *hedef_dosya_adi
+ * @return: void
+ */
+void dosyanin_sifresini_coz(IS my_is, JRB kilit_cozumlenmis, char *hedef_dosya_adi)
 {
-    JRB jrb_decripted, jrb_tmp;
-    Kilit *kilit_decripted;
+    JRB jrb_cozumlendi;
+    Kilit *kilit_cozumlendi;
 
     FILE *fptr;
     fptr = fopen(hedef_dosya_adi, "w");
@@ -152,24 +157,25 @@ void decrypt_file(IS is, JRB kilit_decrypt, char *hedef_dosya_adi)
         exit(1);
     }
 
-    // /* Read each line with get_line().  Print out each word. */
-    while (get_line(is) >= 0)
+    // hedef_dosya_adi parametresi ile gelen dosyanın her satırı get_line () ile okunuyor.
+    // Her kelime çözümleniyor
+    while (get_line(my_is) >= 0)
     {
-        for (int i = 0; i < is->NF; i++)
+        for (int i = 0; i < my_is->NF; i++)
         {
-            if (is->fields[i] != NULL)
+            if (my_is->fields[i] != NULL) // okunan null değilse
             {
-                jrb_decripted = jrb_find_str(kilit_decrypt, is->fields[i]);
+                jrb_cozumlendi = jrb_find_str(jrb_cozumlendi, my_is->fields[i]);
 
-                if (jrb_decripted != NULL)
+                if (jrb_cozumlendi != NULL)
                 {
-                    kilit_decripted = (Kilit *)jrb_decripted->val.v;
-                    fprintf(fptr, "%s ", kilit_decripted->key);
+                    jrb_cozumlendi = (Kilit *)jrb_cozumlendi->val.v;
+                    fprintf(fptr, "%s ", kilit_cozumlendi->key);
                     // printf("%s şifresi için bulunan kelime %s \n", is->fields[i], k1->key);
                 }
                 else
                 {
-                    fprintf(fptr, "%s ", is->fields[i]);
+                    fprintf(fptr, "%s ", my_is->fields[i]);
                 }
             }
         }
