@@ -22,12 +22,15 @@ int main(int argc, char **argv)
   }
   else
   {
-    //jrb'ye ekleme
+    //jrb ağaçları oluşturuluyor.
+    // -e parametresi geldiğinde kullanılacak ağaç
     kilit_sifrelenmis = make_jrb();
+    // -d parametresi geldiğinde kullanılacak ağaç
     kilit_cozumlenmis = make_jrb();
 
+    // .kilit dosyası okunarak jrb agaçları dolduruluyor
     kilit_dosyasindan_jrb_doldur(kilit_sifrelenmis, kilit_cozumlenmis);
-
+    
     my_is = new_inputstruct(argv[2]);
     if (my_is == NULL)
     {
@@ -51,7 +54,7 @@ int main(int argc, char **argv)
     }
   }
 
-  /* Free up the memory allocated with new_inputstruct, and close the open file.  */
+  // new_inputstruct fonksiyonu ile ayrılan bellek alanı boşaltılıyor
   jettison_inputstruct(my_is);
   return 0;
 }
