@@ -20,7 +20,14 @@ typedef struct
 } Kilit;
 
 void print_jrb();
+
+/* @name  : kilit_dosyasindan_jrb_doldur
+ * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
+ * @params: JRB kilit_sifrelenmis, JRB kilit_cozumlenmis
+ * @return: void
+ */
 void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis);
+
 void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
 void decrypt_file(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
 
