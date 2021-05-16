@@ -42,7 +42,7 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis);
  * @params: IS is, JRB kilit_sifrelenmis, char *hedef_dosya_adi
  * @return: void
  */
-void dosyayi_sifrele(IS is2, JRB kilit_sifrelenmis, char *hedef_dosya_adi);
+void dosyayi_sifrele(IS my_is, JRB kilit_sifrelenmis, char *hedef_dosya_adi);
 
 /* @name  : dosyanin_sifresini_coz
  * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
