@@ -169,11 +169,11 @@ void dosyanin_sifresini_coz(IS my_is, JRB kilit_cozumlenmis, char *hedef_dosya_a
         {
             if (my_is->fields[i] != NULL) // okunan null değilse
             {
-                jrb_cozumlendi = jrb_find_str(jrb_cozumlendi, my_is->fields[i]);
+                jrb_cozumlendi = jrb_find_str(kilit_cozumlenmis, my_is->fields[i]);
 
                 if (jrb_cozumlendi != NULL)
                 {
-                    jrb_cozumlendi = (Kilit *)jrb_cozumlendi->val.v;
+                    kilit_cozumlendi = (Kilit *)jrb_cozumlendi->val.v;
                     fprintf(fptr, "%s ", kilit_cozumlendi->key);
                     // printf("%s şifresi için bulunan kelime %s \n", is->fields[i], k1->key);
                 }
