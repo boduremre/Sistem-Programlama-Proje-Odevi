@@ -6,27 +6,36 @@
 
 #include "mrbdr.h"
 
-void remove_str_character(char *s, char delimeter)
+/* @name  : remove_str_character
+ * @desc  : Parametre olarak verilen metin değişkenin yine parametre olarak verilen silinecek_karakter değişkenini siler.
+ * @params: char *metin, char silinecek_karakter
+ * @return: void
+ */
+void metinden_karakter_sil(char *metin, char silinecek_karakter)
 {
-    const char *d = s;
+    const char *d = metin;
     do
     {
-        while (*d == delimeter)
+        while (*d == silinecek_karakter)
         {
             ++d;
         }
-    } while (*s++ = *d++);
+    } while (*metin++ = *d++);
 }
 
-// https://stackoverflow.com/questions/23170096/how-to-count-single-or-double-quotes
-int getNumPipe(const char *cmd, char match)
+/* @name  : tirnak_isareti_say
+ * @desc  : Parametre olarak verilen metin içerisinde " karakterini sayar.
+ * @params: const char *metin, char karakter
+ * @url   : https://stackoverflow.com/questions/23170096/how-to-count-single-or-double-quotes
+ * @return: void
+ */
+int tirnak_isareti_say(const char *metin, char karakter)
 {
-    int num = 0;
-    while (*cmd != '\0')
+    int say = 0;
+    while (*metin != '\0')
     {
-        if (*cmd == match)
-            num++;
-        cmd++;
+        if (*metin == karakter) say++;
+        metin++;
     }
-    return num;
+    return say;
 }
