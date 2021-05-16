@@ -3,17 +3,21 @@
    BSM308 Proje / Tasarım Ödevi
    Mayıs, 2021
 */
-
 #include "kilit.h"
 
-void print_jrb(JRB j)
+/* @name  : jrb_ekrana_yazdir
+ * @desc  : Parametre olarak verilen JRB ağacını ekrana yazar (traverse eder).
+ * @params: JRB jrb_agaci
+ * @return: void
+ */
+void jrb_ekrana_yazdir(JRB jrb_agaci)
 {
-    JRB tmp;
+    JRB jrb_gecici;
     Kilit *kilit;
 
-    jrb_traverse(tmp, j)
+    jrb_traverse(jrb_gecici, jrb_agaci)
     {
-        kilit = (Kilit *)tmp->val.v;
+        kilit = (Kilit *)jrb_gecici->val.v;
         printf("Key=%s Val=%s\n", kilit->key, kilit->val);
     }
 }
