@@ -8,7 +8,7 @@
 
 /* @name  : remove_str_character
  * @desc  : Parametre olarak verilen metin değişkenin yine parametre olarak verilen silinecek_karakter değişkenini siler.
- * @params: char *metin, char ayrac_karakter
+ * @params: char *metin, char silinecek_karakter
  * @return: void
  */
 void metinden_karakter_sil(char *metin, char silinecek_karakter);
