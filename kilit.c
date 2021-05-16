@@ -104,10 +104,15 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
     }
 }
 
-void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
+/* @name  : dosyanin_sifresini_coz
+ * @desc  : Giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre şifreler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_sifrelenmis, char *hedef_dosya_adi
+ * @return: void
+ */
+void dosyayi_sifrele(IS my_is, JRB kilit_sifrelenmis, char *hedef_dosya_adi)
 {
-    JRB rnode;
-    Kilit *k1;
+    JRB jrb_gecici;
+    Kilit *kilit_sifrelendi;
 
     FILE *fptr;
     fptr = fopen(hedef_dosya_adi, "w");
@@ -118,23 +123,23 @@ void encrypt_file(IS is, JRB kilit_encrypt, char *hedef_dosya_adi)
     }
 
     /* Read each line with get_line().  Print out each word. */
-    while (get_line(is) >= 0)
+    while (get_line(my_is) >= 0)
     {
-        for (int i = 0; i < is->NF; i++)
+        for (int i = 0; i < my_is->NF; i++)
         {
-            if (is->fields[i] != NULL)
+            if (my_is->fields[i] != NULL)
             {
-                rnode = jrb_find_str(kilit_encrypt, is->fields[i]);
-                //printf("%d: %s\n", is->line, is->fields[i]);
-                if (rnode != NULL)
+                jrb_gecici = jrb_find_str(kilit_sifrelenmis, my_is->fields[i]);
+                //printf("%d: %s\n", my_is->line, my_is->fields[i]);
+                if (jrb_gecici != NULL)
                 {
-                    k1 = (Kilit *)rnode->val.v;
-                    fprintf(fptr, "%s ", k1->val);
-                    //printf("%s için bir şifre %s \n", is->fields[i], k1->val);
+                    kilit_sifrelendi = (Kilit *)jrb_gecici->val.v;
+                    fprintf(fptr, "%s ", kilit_sifrelendi->val);
+                    //printf("%s için bir şifre %s \n", my_is->fields[i], kilit_sifrelendi->val);
                 }
                 else
                 {
-                    fprintf(fptr, "%s ", is->fields[i]);
+                    fprintf(fptr, "%s ", my_is->fields[i]);
                 }
             }
         }
