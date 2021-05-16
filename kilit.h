@@ -44,6 +44,6 @@ void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
  * @params: IS is, JRB kilit_cozumlenmis, char *hedef_dosya_adi
  * @return: void
  */
-void dosyanin_sifresini_coz(IS is, JRB kilitlerDec, char *hedef_dosya_adi);
+void dosyanin_sifresini_coz(IS my_is, JRB kilit_cozumlenmis, char *hedef_dosya_adi);
 
 #endif
