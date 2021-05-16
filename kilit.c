@@ -61,7 +61,7 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
                 exit(1);
             }
 
-            if (strchr(my_is->text1, '\"') == NULL || getNumPipe(my_is->text1, '\"') < 4)
+            if (strchr(my_is->text1, '\"') == NULL || tirnak_isareti_say(my_is->text1, '\"') < 4)
             {
                 printf("KILIT DOSYASI HATALI!\n");
                 printf("Hatalı Satır Numarası: %d, \nHatalı Satır: %sHata: '\"' karakteri yok!\n", my_is->line, my_is->text1);
@@ -71,9 +71,9 @@ void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
             parcalanmis_text = strtok(my_is->text1, ":");
             while (parcalanmis_text != NULL)
             {
-                remove_str_character(parcalanmis_text, ' ');  // boşluk karakteri siliniyor
-                remove_str_character(parcalanmis_text, '\n'); // satır karakteri siliniyor
-                remove_str_character(parcalanmis_text, '"');  // çift tırnak karakteri siliniyor
+                metinden_karakter_sil(parcalanmis_text, ' ');  // boşluk karakteri siliniyor
+                metinden_karakter_sil(parcalanmis_text, '\n'); // satır karakteri siliniyor
+                metinden_karakter_sil(parcalanmis_text, '"');  // çift tırnak karakteri siliniyor
 
                 if (parcalanmis_text != NULL)
                 {
