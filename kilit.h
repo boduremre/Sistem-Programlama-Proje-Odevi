@@ -13,13 +13,22 @@
 #include "fields.h"
 #include "mrbdr.h"
 
+/* @name   : Kilit
+ * @desc   : Kilit dosyasından okunan anahtar değer ikilisini tutan yapıdır.
+ * @members: char *key, char *val;
+ */
 typedef struct
 {
     char *key;
     char *val;
 } Kilit;
 
-void print_jrb();
+/* @name  : jrb_ekrana_yazdir
+ * @desc  : Parametre olarak verilen JRB ağacını ekrana yazar (traverse eder).
+ * @params: JRB jrb_agaci
+ * @return: void
+ */
+void jrb_ekrana_yazdir(JRB jrb_agaci);
 
 /* @name  : kilit_dosyasindan_jrb_doldur
  * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
