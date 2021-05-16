@@ -18,6 +18,11 @@ void print_jrb(JRB j)
     }
 }
 
+/* @name  : kilit_dosyasindan_jrb_doldur
+ * @desc  : Bu fonksiyon kilit dosyasını okur(parse eder) ve parametre olarak verilen ağaçları doldurur.
+ * @params: JRB kilit_sifrelenmis, JRB kilit_cozumlenmis
+ * @return: void
+ */
 void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis)
 {
     IS my_is;
