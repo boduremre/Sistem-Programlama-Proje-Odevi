@@ -37,7 +37,12 @@ void jrb_ekrana_yazdir(JRB jrb_agaci);
  */
 void kilit_dosyasindan_jrb_doldur(JRB kilit_sifrelenmis, JRB kilit_cozumlenmis);
 
-void encrypt_file(IS is2, JRB kilitler, char *hedef_dosya_adi);
+/* @name  : dosyanin_sifresini_coz
+ * @desc  : Giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre şifreler ve hedef dosyaya yazar.
+ * @params: IS is, JRB kilit_sifrelenmis, char *hedef_dosya_adi
+ * @return: void
+ */
+void dosyayi_sifrele(IS is2, JRB kilit_sifrelenmis, char *hedef_dosya_adi);
 
 /* @name  : dosyanin_sifresini_coz
  * @desc  : Şifreli giriş metnini kilit dosyasından okunarak doldurulan jrb ağacına göre çözümler ve hedef dosyaya yazar.
