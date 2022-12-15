@@ -1,5 +1,5 @@
 # Sistem Programlama Proje Ödevi
-## Ödev Notu 90 Puan'dır.
+### Ödev 100 üzerinden 90 puan almıştır.
 BSM308 Sistem Programlama Dersi Proje Ödevi Huffman Kodlama ve Çözümleme
 
 ### Projenin Amacı
